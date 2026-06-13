@@ -57,7 +57,7 @@ struct MemeCreator: View, Sendable {
                     if let randomImage = fetcher.imageData.sample.randomElement() {
                         fetcher.currentPanda = randomImage
                     }
-                } label: {
+                }label: {
                     VStack {
                         Image(systemName: "photo.on.rectangle.angled")
                             .font(.largeTitle)
@@ -82,14 +82,29 @@ struct MemeCreator: View, Sendable {
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.large)
+                
             }
             .fixedSize(horizontal: false, vertical: true)
             .frame(maxHeight: 180, alignment: .center)
+            
         }
         .padding()
         .task {
             try? await fetcher.fetchData()
         }
-        .navigationTitle("Meme Creator")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Meme Creator")
+                    //.font(.headline)
+                    .fontWeight(.bold)
+                    .font(.system(size: 48))
+                   // .border(.primary, width: 3)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.top, 120)
+            }
+        }
+        .padding(.top, 72)
+
     }
 }
